@@ -1,0 +1,29 @@
+// DAX measures (adapt table/column names to the final model).
+// Assumption: the Pedidos table holds only eligible orders (see README) and is related
+// to the Calendar table by the PROMISED DATE.
+
+OTIF Orders =
+CALCULATE (
+    DISTINCTCOUNT ( Pedidos[pedido_id] ),
+    Pedidos[otif] = TRUE ()
+)
+
+Total Orders =
+DISTINCTCOUNT ( Pedidos[pedido_id] )
+
+OTIF % =
+DIVIDE ( [OTIF Orders], [Total Orders], 0 )
+
+OTIF Target = 0.95
+
+OTIF Gap (pp) =
+( [OTIF Target] - [OTIF %] ) * 100
+
+Total Cost =
+SUM ( Pedidos[costo_transporte] )
+
+Cost per Order =
+DIVIDE ( [Total Cost], [Total Orders] )
+
+Avg Delay Days =
+AVERAGE ( Pedidos[dias_retraso] )

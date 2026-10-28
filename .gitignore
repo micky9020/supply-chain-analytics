@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+# Datos y resultados generados (no se versionan)
+data/raw/*
+!data/raw/.gitkeep
+outputs/*
+!outputs/.gitkeep
